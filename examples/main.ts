@@ -24,13 +24,11 @@ joint.maxl = [0, 1, 0];
 joint.a = bodyA;
 joint.b = bodyB;
 
-
 console.log('scene =', scene);
 console.log('plane =', plane);
 console.log('A =', bodyA);
 console.log('B =', bodyB);
 console.log('JOINT =', joint);
-
 
 // TODO
 // const trace1 = new Trace({ scene, from: [0, 200, 0], to: [0, -10, 0] });
@@ -39,13 +37,14 @@ console.log('JOINT =', joint);
 // const trace2 = new Trace();
 // console.log('TRACE 2', trace2);
 
-
 const hitRes = scene.hit([0, 200, 0], [0, -10, 0]);
 console.log('Body hit by ray:', hitRes);
 
 const traceRes = scene.trace([0, 200, 0], [0, -10, 0]);
-console.log('Ray traced bodies:', traceRes.map((result) => result.body));
-
+console.log(
+	'Ray traced bodies:',
+	traceRes.map((result) => result.body),
+);
 
 let prevTimeA = 0;
 bodyA.on('update', (u) => {
@@ -53,7 +52,7 @@ bodyA.on('update', (u) => {
 	if (prevTimeA + 1000 > t) {
 		return;
 	}
-	
+
 	prevTimeA = t;
 	console.log('Body A height:', u.pos.y);
 });
@@ -64,11 +63,10 @@ joint.on('update', (u) => {
 	if (prevTimeJ + 1000 > t) {
 		return;
 	}
-	
+
 	prevTimeJ = t;
 	console.log('Joint body heights:', u.posa.y, u.posb.y);
 });
-
 
 const frame = () => {
 	scene.update();

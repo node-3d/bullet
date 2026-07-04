@@ -13,7 +13,7 @@ import type {
 
 type TNativeBodyWithEvents = TBodyInstance & EventEmitter;
 
-const NativeBody = native.Body as unknown as new(scene: TSceneInstance) => TNativeBodyWithEvents;
+const NativeBody = native.Body as unknown as new (scene: TSceneInstance) => TNativeBodyWithEvents;
 
 inherits(NativeBody, EventEmitter);
 
@@ -46,7 +46,7 @@ export class Body extends NativeBody {
 	public constructor({ scene, ...opts }: TOptsBody) {
 		super(scene);
 		Object.assign(this, opts satisfies Partial<TBodyProps>);
-		
+
 		// Prevent garbage collection until object is intentionally destroyed
 		nonGcRefs.add(this);
 		this.on('destroy', () => {
@@ -54,9 +54,11 @@ export class Body extends NativeBody {
 		});
 	}
 
-	public [inspect.custom](): string  { return this.toString(); }
-	
-	public toString(): string  {
+	public [inspect.custom](): string {
+		return this.toString();
+	}
+
+	public toString(): string {
 		return `Body { type: ${this.type}, pos: [${this.pos}] }`;
 	}
 }

@@ -1,3 +1,4 @@
+// oxlint-disable typescript/method-signature-style
 import type { EventEmitter } from 'node:events';
 
 export type TVec3Array = readonly [number, number, number];
@@ -114,9 +115,10 @@ export type TBodyProps = {
 
 export type TBodyInstance = TCommonProps & TBodyProps;
 
-export type TOptsBody = Readonly<Partial<TBodyProps>> & Readonly<{
-	scene: TSceneInstance;
-}>;
+export type TOptsBody = Readonly<Partial<TBodyProps>> &
+	Readonly<{
+		scene: TSceneInstance;
+	}>;
 
 export type TJointProps = {
 	/** First connected body. */
@@ -187,15 +189,16 @@ export type TSceneProps = {
 
 export type TOptsScene = Readonly<Partial<TSceneProps>>;
 
-export type TSceneInstance = TCommonProps & TSceneProps & {
-	/**
-	 * Make a simulation step.
-	 *
-	 * If `deltaTime` is not defined, the realtime delta will be used.
-	 */
-	update(deltaTime?: number): void;
-	/** Detect the first hit on a ray trace. */
-	hit(from: TVec3Like, to: TVec3Like): TTraceHit;
-	/** Detect all hits on a ray trace. */
-	trace(from: TVec3Like, to: TVec3Like): TTraceHits;
-};
+export type TSceneInstance = TCommonProps &
+	TSceneProps & {
+		/**
+		 * Make a simulation step.
+		 *
+		 * If `deltaTime` is not defined, the realtime delta will be used.
+		 */
+		update(deltaTime?: number): void;
+		/** Detect the first hit on a ray trace. */
+		hit(from: TVec3Like, to: TVec3Like): TTraceHit;
+		/** Detect all hits on a ray trace. */
+		trace(from: TVec3Like, to: TVec3Like): TTraceHits;
+	};

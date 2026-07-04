@@ -1,3 +1,4 @@
+// oxlint-disable typescript/method-signature-style
 import { createRequire } from 'node:module';
 import { getBin } from '@node-3d/addon-tools';
 import '@node-3d/segfault';
@@ -19,16 +20,17 @@ type TNativeCommonInstance = {
 
 type TNativeBodyInstance = TNativeCommonInstance & TBodyProps;
 type TNativeJointInstance = TNativeCommonInstance & TJointProps;
-type TNativeSceneInstance = TNativeCommonInstance & TSceneProps & {
-	update(deltaTime?: number): void;
-	hit(from: TVec3Like, to: TVec3Like): TTraceHit;
-	trace(from: TVec3Like, to: TVec3Like): TTraceHits;
-};
+type TNativeSceneInstance = TNativeCommonInstance &
+	TSceneProps & {
+		update(deltaTime?: number): void;
+		hit(from: TVec3Like, to: TVec3Like): TTraceHit;
+		trace(from: TVec3Like, to: TVec3Like): TTraceHits;
+	};
 
 type TNative = {
-	Body: new(scene: TNativeSceneInstance) => TNativeBodyInstance;
-	Scene: new() => TNativeSceneInstance;
-	Joint: new() => TNativeJointInstance;
+	Body: new (scene: TNativeSceneInstance) => TNativeBodyInstance;
+	Scene: new () => TNativeSceneInstance;
+	Joint: new () => TNativeJointInstance;
 };
 
 const loadAddon = createRequire(import.meta.url);

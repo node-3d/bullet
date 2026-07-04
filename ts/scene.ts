@@ -12,7 +12,7 @@ import type {
 
 type TNativeSceneWithEvents = TSceneInstance & EventEmitter;
 
-const NativeScene = native.Scene as unknown as new() => TNativeSceneWithEvents;
+const NativeScene = native.Scene as unknown as new () => TNativeSceneWithEvents;
 
 inherits(NativeScene, EventEmitter);
 
@@ -32,17 +32,19 @@ export class Scene extends NativeScene {
 	public constructor(opts: TOptsScene = {}) {
 		super();
 		Object.assign(this, opts satisfies Partial<TSceneProps>);
-		
+
 		// Prevent garbage collection until object is intentionally destroyed
 		nonGcRefs.add(this);
 		this.on('destroy', () => {
 			nonGcRefs.delete(this);
 		});
 	}
-	
-	public [inspect.custom](): string  { return this.toString(); }
-	
-	public toString(): string  {
+
+	public [inspect.custom](): string {
+		return this.toString();
+	}
+
+	public toString(): string {
 		return `Scene { gravity: [${this.gravity}] }`;
 	}
 }

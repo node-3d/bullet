@@ -3,12 +3,12 @@ import { after, before, describe, it } from 'node:test';
 import { Body, Joint, Scene } from './index.ts';
 
 type TDestroyable = {
-	destroy(): void;
+	destroy: () => void;
 };
 
 type TClassTest = {
-	create(): object;
-	destroy(instance: object): void;
+	create: () => object;
+	destroy: (instance: object) => void;
 	props: readonly string[];
 	methods: readonly string[];
 };
@@ -26,7 +26,9 @@ const classes: TClasses = {
 		create() {
 			return scene;
 		},
-		destroy() { /* nop */ },
+		destroy() {
+			/* nop */
+		},
 		props: ['gravity'],
 		methods: ['update', 'hit', 'trace', 'destroy'],
 	},
@@ -38,8 +40,23 @@ const classes: TClasses = {
 			(instance as TDestroyable).destroy();
 		},
 		props: [
-			'type', 'pos', 'rot', 'quat', 'vell', 'vela', 'size', 'factl', 'facta',
-			'map', 'mesh', 'mass', 'rest', 'dampl', 'dampa', 'frict', 'sleepy',
+			'type',
+			'pos',
+			'rot',
+			'quat',
+			'vell',
+			'vela',
+			'size',
+			'factl',
+			'facta',
+			'map',
+			'mesh',
+			'mass',
+			'rest',
+			'dampl',
+			'dampa',
+			'frict',
+			'sleepy',
 		],
 		methods: ['destroy'],
 	},
@@ -51,9 +68,30 @@ const classes: TClasses = {
 			(instance as TDestroyable).destroy();
 		},
 		props: [
-			'a', 'b', 'broken', 'maximp', 'posa', 'posb', 'rota', 'rotb', 'minl',
-			'maxl', 'mina', 'maxa', 'dampl', 'dampa', 'stifl', 'stifa', 'springl',
-			'springa', 'motorl', 'motora', 'motorlf', 'motoraf', 'motorlv', 'motorav',
+			'a',
+			'b',
+			'broken',
+			'maximp',
+			'posa',
+			'posb',
+			'rota',
+			'rotb',
+			'minl',
+			'maxl',
+			'mina',
+			'maxa',
+			'dampl',
+			'dampa',
+			'stifl',
+			'stifa',
+			'springl',
+			'springa',
+			'motorl',
+			'motora',
+			'motorlf',
+			'motoraf',
+			'motorlv',
+			'motorav',
 		],
 		methods: ['destroy'],
 	},
@@ -77,7 +115,7 @@ describe('Bullet', () => {
 		assert.strictEqual(typeof Body, 'function');
 		assert.strictEqual(typeof Joint, 'function');
 	});
-	
+
 	for (const className of Object.keys(classes) as (keyof TClasses)[]) {
 		describe(className, () => {
 			const current = classes[className];
@@ -86,24 +124,24 @@ describe('Bullet', () => {
 				assert.ok(instance);
 				return instance;
 			};
-			
+
 			before(() => {
 				instance = current.create();
 			});
-			
+
 			after(() => {
 				current.destroy(getInstance());
 			});
-			
+
 			it('can be created', () => {
 				const ctor = { Body, Joint, Scene }[className];
 				assert.ok(getInstance() instanceof ctor);
 			});
-			
+
 			for (const prop of current.props) {
 				testProperty(getInstance, prop);
 			}
-			
+
 			for (const method of current.methods) {
 				testMethod(getInstance, method);
 			}
