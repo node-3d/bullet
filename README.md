@@ -99,7 +99,7 @@ const { body } = scene.hit(start, end);
 Here `body` is whatever `Body` the ray hits first on its path. For subclasses of `Body`,
 this will respect the dynamic type. I.e. for `class House extends Body {...}` the expression
 `body instanceof House` will be `true`.
-See `scene.hit` and `scene.trace` in the [example](/examples/main.ts).
+See `scene.hit` and `scene.trace` in the [example](examples/main.ts).
 
 ## Adding Bodies
 
