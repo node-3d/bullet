@@ -10,4 +10,5 @@ src/build/
 bin-*/
 *.log
 .rslib/
+.clang-format
 *.tgz
