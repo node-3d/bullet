@@ -11,20 +11,7 @@ This is a part of [Node3D](https://github.com/node-3d) project.
 npm install @node-3d/bullet
 ```
 
-## Binary Origin
 
-Release archives are built by this repository's public GitHub Actions workflows.
-
-Attestations: https://github.com/node-3d/bullet/attestations
-
-To verify a downloaded archive:
-
-```bash
-gh release download <tag> -R node-3d/bullet -p <platform>.gz
-gh attestation verify <platform>.gz -R node-3d/bullet
-```
-
-> This addon is ABI-compatible across Node.js versions. **There is no compilation** during `npm install`.
 
 **Node.js** addon providing a Bullet-driven physics API.
 
@@ -183,3 +170,18 @@ joint.on('update', (event) => {
 Joints can be broken when overwhelmed with impulse. This is controlled by `joint.maximp` -
 by default it's very high. But you can lower it so that, for instance, car wheels fall off
 upon extreme impact.
+
+## Binary Origin
+
+Release archives are built by this repository's public GitHub Actions workflows.
+
+Attestations: https://github.com/node-3d/bullet/attestations
+
+To verify a downloaded archive:
+
+```bash
+gh release download <tag> -R node-3d/bullet -p <platform>.gz
+gh attestation verify <platform>.gz -R node-3d/bullet
+```
+
+> This addon is ABI-compatible across Node.js versions. **There is no compilation** during `npm install`.
