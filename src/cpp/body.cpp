@@ -471,8 +471,7 @@ void Body::_rebuild() {
 		/*} else if (_cacheType == "mesh" && _cacheMesh) {
 
 		} */
-	} else /*if (type == "box")*/
-	{
+	} else { // type == "box"
 		_cshape = ALIGNED_NEW(btBoxShape, btVector3(0.5f, 0.5f, 0.5f));
 	}
 
