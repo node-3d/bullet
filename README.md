@@ -15,6 +15,9 @@ npm install @node-3d/bullet
 
 **Node.js** addon providing a Bullet-driven physics API.
 
+Prebuilt binaries are available for Windows x64/ARM64, Linux x64/ARM64, and
+macOS x64/ARM64.
+
 This library is a simplified interpretation of
 [Bullet Physics](https://github.com/bulletphysics/bullet3).
 Only rigid bodies and DOF-6 constraint are supported.
@@ -44,12 +47,13 @@ Useful members:
 Rigid body primitive. Constructor requires `{ scene }` and accepts shape/physics options.
 Common properties:
 
-* `type` - body shape, such as `'box'`, `'sphere'`, or `'plane'`.
+* `type` - body shape: `'box'`, `'ball'`, `'roll'`, `'pill'`, or `'plane'`.
 * `pos`, `quat` - transform.
-* `size`, `radius`, `height` - shape dimensions, depending on `type`.
+* `size` - shape dimensions.
 * `mass` - `0` for static bodies, positive values for dynamic bodies.
 * `vell`, `vela` - linear and angular velocity.
-* `friction`, `restitution`, `damping`, `sleeping` controls.
+* `frict`, `rest`, `dampl`, `dampa`, `sleepy` - friction, restitution,
+  damping, and sleep controls.
 
 `Body` emits property-change events and `update` events while active.
 
