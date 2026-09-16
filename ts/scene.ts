@@ -10,7 +10,7 @@ import type {
 	TVec3Like,
 } from './types.ts';
 
-type TNativeSceneWithEvents = TSceneInstance & EventEmitter;
+type TNativeSceneWithEvents = TSceneInstance;
 
 const NativeScene = native.Scene as unknown as new () => TNativeSceneWithEvents;
 
@@ -44,7 +44,7 @@ export class Scene extends NativeScene {
 		return this.toString();
 	}
 
-	public toString(): string {
-		return `Scene { gravity: [${this.gravity}] }`;
+	public override toString(): string {
+		return `Scene`;
 	}
 }

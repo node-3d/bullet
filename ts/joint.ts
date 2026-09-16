@@ -3,7 +3,7 @@ import { inspect, inherits } from 'node:util';
 import { native } from './native.ts';
 import type { TBodyInstance, TJointInstance, TJointProps, TOptsJoint, TVec3Like } from './types.ts';
 
-type TNativeJointWithEvents = TJointInstance & EventEmitter;
+type TNativeJointWithEvents = TJointInstance;
 
 const NativeJoint = native.Joint as unknown as new () => TNativeJointWithEvents;
 
@@ -57,7 +57,7 @@ export class Joint extends NativeJoint {
 		return this.toString();
 	}
 
-	public toString(): string {
+	public override toString(): string {
 		return `Joint { broken: ${this.broken} }`;
 	}
 }

@@ -11,7 +11,7 @@ import type {
 	TVec3Like,
 } from './types.ts';
 
-type TNativeBodyWithEvents = TBodyInstance & EventEmitter;
+type TNativeBodyWithEvents = TBodyInstance;
 
 const NativeBody = native.Body as unknown as new (scene: TSceneInstance) => TNativeBodyWithEvents;
 
@@ -58,7 +58,7 @@ export class Body extends NativeBody {
 		return this.toString();
 	}
 
-	public toString(): string {
-		return `Body { type: ${this.type}, pos: [${this.pos}] }`;
+	public override toString(): string {
+		return `Body { type: ${this.type} }`;
 	}
 }

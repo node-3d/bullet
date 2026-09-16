@@ -28,7 +28,41 @@ export type TEvent = {
 
 export type TEventCallback<T extends TEvent> = (event: T) => boolean | undefined;
 
-export type TCommonProps = EventEmitter & {
+export type TEventListener<TArgs extends unknown[]> = (...args: TArgs) => void;
+
+export type TTypedEventEmitter<TEvents> = Omit<
+	EventEmitter,
+	'on' | 'once' | 'addListener' | 'prependListener'
+> & {
+	on<TName extends keyof TEvents>(
+		eventName: TName,
+		listener: TEvents[TName] extends unknown[] ? TEventListener<TEvents[TName]> : never,
+	): TTypedEventEmitter<TEvents>;
+	on(eventName: string | symbol, listener: (...args: unknown[]) => void): TTypedEventEmitter<TEvents>;
+	once<TName extends keyof TEvents>(
+		eventName: TName,
+		listener: TEvents[TName] extends unknown[] ? TEventListener<TEvents[TName]> : never,
+	): TTypedEventEmitter<TEvents>;
+	once(eventName: string | symbol, listener: (...args: unknown[]) => void): TTypedEventEmitter<TEvents>;
+	addListener<TName extends keyof TEvents>(
+		eventName: TName,
+		listener: TEvents[TName] extends unknown[] ? TEventListener<TEvents[TName]> : never,
+	): TTypedEventEmitter<TEvents>;
+	addListener(
+		eventName: string | symbol,
+		listener: (...args: unknown[]) => void,
+	): TTypedEventEmitter<TEvents>;
+	prependListener<TName extends keyof TEvents>(
+		eventName: TName,
+		listener: TEvents[TName] extends unknown[] ? TEventListener<TEvents[TName]> : never,
+	): TTypedEventEmitter<TEvents>;
+	prependListener(
+		eventName: string | symbol,
+		listener: (...args: unknown[]) => void,
+	): TTypedEventEmitter<TEvents>;
+};
+
+export type TCommonProps<TEvents = Record<never, never>> = TTypedEventEmitter<TEvents> & {
 	/**
 	 * True if `destroy` was called.
 	 */
@@ -113,7 +147,21 @@ export type TBodyProps = {
 	sleepy: boolean;
 };
 
-export type TBodyInstance = TCommonProps & TBodyProps;
+export type TBodyUpdateEvent = Readonly<{
+	pos: TVec3Value;
+	quat: TQuatValue;
+	vell: TVec3Value;
+	vela: TVec3Value;
+}>;
+
+export type TBodyEventMap = {
+	[K in keyof TBodyProps]: [value: TBodyProps[K]];
+} & {
+	destroy: [];
+	update: [event: TBodyUpdateEvent];
+};
+
+export type TBodyInstance = TCommonProps<TBodyEventMap> & TBodyProps;
 
 export type TOptsBody = Readonly<Partial<TBodyProps>> &
 	Readonly<{
@@ -180,7 +228,21 @@ export type TJointProps = {
 };
 
 export type TOptsJoint = Readonly<Partial<TJointProps>>;
-export type TJointInstance = TCommonProps & TJointProps;
+
+export type TJointUpdateEvent = Readonly<{
+	posa: TVec3Value;
+	posb: TVec3Value;
+	broken: boolean;
+}>;
+
+export type TJointEventMap = {
+	[K in keyof TJointProps]: [value: TJointProps[K]];
+} & {
+	destroy: [];
+	update: [event: TJointUpdateEvent];
+};
+
+export type TJointInstance = TCommonProps<TJointEventMap> & TJointProps;
 
 export type TSceneProps = {
 	/** Scene gravity. Default is `[0, -10, 0]`. */
@@ -189,7 +251,13 @@ export type TSceneProps = {
 
 export type TOptsScene = Readonly<Partial<TSceneProps>>;
 
-export type TSceneInstance = TCommonProps &
+export type TSceneEventMap = {
+	[K in keyof TSceneProps]: [value: TSceneProps[K]];
+} & {
+	destroy: [];
+};
+
+export type TSceneInstance = TCommonProps<TSceneEventMap> &
 	TSceneProps & {
 		/**
 		 * Make a simulation step.
