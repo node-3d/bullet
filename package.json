@@ -1,7 +1,7 @@
 {
 	"author": "Luis Blanco <luisblanco1337@gmail.com>",
 	"name": "@node-3d/bullet",
-	"version": "5.0.1",
+	"version": "5.1.0",
 	"description": "Bullet-driven physics API",
 	"license": "MIT",
 	"main": "dist/index.js",
@@ -50,8 +50,8 @@
 	},
 	"dependencies": {
 		"@node-3d/addon-tools": "~10.1.0",
-		"@node-3d/deps-bullet": "~5.0.0",
-		"@node-3d/segfault": "~4.0.0"
+		"@node-3d/deps-bullet": "~5.0.1",
+		"@node-3d/segfault": "~4.0.2"
 	},
 	"devDependencies": {
 		"@types/node": "24.13.2",
