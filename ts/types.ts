@@ -38,12 +38,18 @@ export type TTypedEventEmitter<TEvents> = Omit<
 		eventName: TName,
 		listener: TEvents[TName] extends unknown[] ? TEventListener<TEvents[TName]> : never,
 	): TTypedEventEmitter<TEvents>;
-	on(eventName: string | symbol, listener: (...args: unknown[]) => void): TTypedEventEmitter<TEvents>;
+	on(
+		eventName: string | symbol,
+		listener: (...args: unknown[]) => void,
+	): TTypedEventEmitter<TEvents>;
 	once<TName extends keyof TEvents>(
 		eventName: TName,
 		listener: TEvents[TName] extends unknown[] ? TEventListener<TEvents[TName]> : never,
 	): TTypedEventEmitter<TEvents>;
-	once(eventName: string | symbol, listener: (...args: unknown[]) => void): TTypedEventEmitter<TEvents>;
+	once(
+		eventName: string | symbol,
+		listener: (...args: unknown[]) => void,
+	): TTypedEventEmitter<TEvents>;
 	addListener<TName extends keyof TEvents>(
 		eventName: TName,
 		listener: TEvents[TName] extends unknown[] ? TEventListener<TEvents[TName]> : never,
